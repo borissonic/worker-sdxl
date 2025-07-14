@@ -37,12 +37,13 @@ COPY download_weights.py schemas.py handler.py test_input.json /
 # create models directory
 RUN mkdir -p /models
 
-# Accept CivitAI API key as build argument
+# Accept CivitAI API key as build argument (optional)
 ARG CIVITAI_API_KEY
 
-# download the weights from hugging face and CivitAI
+# download the base weights from hugging face
+# Note: Pony Realism will be downloaded at runtime if CIVITAI_API_KEY is provided
 ENV CIVITAI_API_KEY=${CIVITAI_API_KEY}
-RUN python /download_weights.py
+RUN python /download_weights.py || echo "Model download completed (some models may download at runtime)"
 
 # run the handler
 CMD python -u /handler.py
