@@ -41,16 +41,30 @@ class ModelHandler:
             torch_dtype=torch.float16,
             local_files_only=True,
         )
-        # Load Base Pipeline from cache using identifier
-        base_pipe = StableDiffusionXLPipeline.from_pretrained(
-            "stabilityai/stable-diffusion-xl-base-1.0",
-            vae=vae,
-            torch_dtype=torch.float16,
-            variant="fp16",
-            use_safetensors=True,
-            add_watermarker=False,
-            local_files_only=True,
-        ).to("cuda")
+        
+        # Load Pony Realism model
+        pony_model_path = "/models/pony_realism.safetensors"
+        if os.path.exists(pony_model_path):
+            # Load Pony Realism as a single file checkpoint
+            base_pipe = StableDiffusionXLPipeline.from_single_file(
+                pony_model_path,
+                vae=vae,
+                torch_dtype=torch.float16,
+                use_safetensors=True,
+                add_watermarker=False,
+            ).to("cuda")
+        else:
+            # Fallback to original SDXL model if Pony Realism not found
+            print("Warning: Pony Realism model not found, falling back to SDXL base model")
+            base_pipe = StableDiffusionXLPipeline.from_pretrained(
+                "stabilityai/stable-diffusion-xl-base-1.0",
+                vae=vae,
+                torch_dtype=torch.float16,
+                variant="fp16",
+                use_safetensors=True,
+                add_watermarker=False,
+                local_files_only=True,
+            ).to("cuda")
         
         # Enable memory optimizations
         base_pipe.enable_xformers_memory_efficient_attention()

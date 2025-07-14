@@ -2,11 +2,17 @@
 
 ---
 
-Run [Stable Diffusion XL](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0) as a serverless endpoint to generate images.
+Run [Pony Realism](https://civitai.com/models/1629068/pony-realism) (SDXL-based model) as a serverless endpoint to generate images. Falls back to [Stable Diffusion XL](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0) if Pony Realism model is not available.
 
 ---
 
 [![RunPod](https://api.runpod.io/badge/runpod-workers/worker-sdxl)](https://www.runpod.io/console/hub/runpod-workers/worker-sdxl)
+
+---
+
+## Setup
+
+This worker uses the Pony Realism model from CivitAI. You may need a CivitAI API key to download the model during Docker build. See [SETUP.md](./SETUP.md) for detailed instructions.
 
 ---
 
@@ -32,6 +38,14 @@ The worker accepts the following input parameters:
 
 > [!NOTE]  
 > `prompt` is required unless `image_url` is provided
+
+### Model Notes
+
+**Pony Realism** is optimized for:
+- Highly realistic human portraits and characters
+- Natural lighting and skin textures
+- Detailed facial features
+- Works best with descriptive prompts that specify realistic details
 
 ### Example Request
 

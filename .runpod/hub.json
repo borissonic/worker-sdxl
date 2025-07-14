@@ -1,6 +1,6 @@
 {
-  "title": "Stable Diffusion XL",
-  "description": "Generate images with Stable Diffusion XL.",
+  "title": "Pony Realism (SDXL)",
+  "description": "Generate highly realistic images with Pony Realism, an SDXL-based model optimized for photorealistic portraits.",
   "type": "serverless",
   "category": "image",
   "iconUrl": "https://dummyimage.com/100x100/7b00ff/fff&text=SDXL",
